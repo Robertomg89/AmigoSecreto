@@ -1,0 +1,129 @@
+package Database;
+    import java.sql.*;  
+      
+    public class conexao {  
+          
+        public Connection con;  
+        public Statement stm;
+        public PreparedStatement stms;  
+        public ResultSet rs = null;  
+        private String nome = null;  
+        private String email = null; 
+        private String sit = "";
+      
+        public conexao() {  
+             try{
+                                Class.forName("org.h2.Driver");
+                                con = DriverManager.getConnection("jdbc:h2:~/test","sa","");
+                                stm = con.createStatement();
+                                sit = "Conexão efetuada com sucesso";
+              }
+              catch (Exception e){  
+                                    sit = "Não foi possível conectar ao banco" + e.getMessage();  
+              } 
+        }  
+         public String getSituacao(){  
+            return sit; 
+         }
+                 
+        public void setNome(String nome){  
+            this.nome = nome;  
+        }  
+           
+        public void setEmail(String email){  
+            this.email = email;  
+        }  
+       
+        public String getNome(){  
+            return nome;  
+        }    
+              
+        public String getEmail(){  
+            return email;  
+        }  
+      
+        public void inserirDados(){  
+          
+            try {  
+                String query = "INSERT INTO pessoa(nome,email) VALUES(?,?)";  
+                stms = con.prepareStatement(query);
+                stms.setString(1,nome);
+                stms.setString(2,email);
+                stms.executeUpdate();
+                      
+            }catch (SQLException e){ System.out.println("Erro na inserção:" + e.getMessage());}  
+              
+        }  
+      
+        public boolean alterarDados(){  
+              
+            boolean testa = false;  
+          
+            try {  
+                String query = "update pessoa set nome='"+nome+"',email ='"+email+"' where email='"+email+"'";  
+                stms = con.prepareStatement(query);
+                int linhas = stms.executeUpdate();  
+                  
+                if (linhas > 0)  
+                    testa = true;  
+                else  
+                    testa = false;  
+      
+            }catch (SQLException e){System.out.println("Erro na atualização:" + e.getMessage());}  
+              
+            return testa;  
+        }  
+          
+        public boolean excluirDados(){  
+          
+         boolean testa = false;  
+          
+            try {  
+                String query = "delete from pessoa where nome='" + nome+"'"; 
+                stms = con.prepareStatement(query);
+                int linhas = stms.executeUpdate(query);  
+                  
+                if (linhas > 0)  
+                    testa = true;  
+                else  
+                    testa = false;  
+      
+            }catch (SQLException e){System.out.println("Erro na exclusão:" + e.getMessage());}  
+              
+            return testa;  
+        }  
+          
+        public boolean consultarDados(){  
+              
+            boolean testa = false;  
+                  
+            try {  
+                String query = "select * from pessoa where nome='" + nome+"'";  
+                stms = con.prepareStatement(query);
+                rs = stms.executeQuery();  
+                  
+                if (rs.next()){testa = true;}  
+                else{testa = false;}  
+                  
+            }catch (SQLException e){System.out.println("Erro na inserção:" + e.getMessage());}  
+              
+            return testa;  
+        }     
+      
+        public void setConsulta() {  
+              
+            try {  
+                String query = "select * from pessoa";
+                stms = con.prepareStatement(query);
+                rs = stms.executeQuery();  
+            }   
+            catch (SQLException e){  
+                e.printStackTrace();  
+            }  
+      
+        }  
+      
+        public ResultSet getResultado() {  
+            return rs;  
+        }  
+    } 
