@@ -1,0 +1,10 @@
+create table Pessoa
+(
+	nome varchar(255),
+	email varchar(80)
+)
+
+insert into pessoa values('Roberto', 'roberto@hotmail.com');
+insert into pessoa values('Marisa', 'marisa@bol.com.br');
+insert into pessoa values('Roberto2', 'roberto@bol.com.br');
+insert into pessoa values('Marisa2', 'marisa@hotmail.com');
