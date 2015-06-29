@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<%@ page contentType="text/html" language="java" import="java.sql.*"%>
+<html>
+    <head>
+        <title>Home: Amigosecreto 2015</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />		
+     <header>
+            <link rel="stylesheet" href="Mycss.css"/>
+        <hgroup class="clearfix">
+            <font color = "White"><h1><span>Homepage amigo secreto</span></h1></font>
+            <h2><span>Desenvolvedor: Roberto </span></h2>
+    	</hgroup>
+     </header>
+    </head>
+    
+    <script>
+        function enviar(par){     
+            if (par == 'cadastrar'){       
+                document.home.action='Iupessoas.jsp';  
+                document.home.submit();  
+            }  
+            if (par == 'sortear'){    
+            }
+        }
+    </script>
+    <body> 
+        <div id="main" class="clearfix"> <!-- Início do Menu -->
+            <aside>
+                <nav>
+                    <ul id="menu">
+                        <li class="current_page_item"><a href="index.jsp">Home</a></li>	
+                    </ul>
+                </nav>
+            </aside>
+            
+            <div id="content">
+                <article>
+                    <section>
+                        <form name="home" method="get"> 
+                        <div align = "center"><fieldset style="width: 400px; height: 180px"><legend>Lista de pessoas que participarão do sorteio</legend>
+                         <% 
+                            try{
+                                Class.forName("org.h2.Driver");
+                                Connection conn = DriverManager.getConnection("jdbc:h2:~/test","sa","");
+                                Statement stmt = conn.createStatement();
+                                ResultSet rs = stmt.executeQuery("SELECT * FROM PESSOA");
+                                   	
+                                    out.println("<select name=\"lstnomes\" id=\"lstnomes\" size=\"9\">");  
+                                while(rs.next()){
+                                    out.println("<option>" + rs.getString("nome") + "</option>");
+                                } 
+                                    out.println("</select>" + "<wbr>" + "<br><br>");
+                                    
+                                    rs = stmt.executeQuery("SELECT * FROM PESSOA");
+                                    out.println("Selecionar nome para busca:" + "<select name=\"cbonomes\" id=\"cbonomes\">");
+                                while(rs.next()){
+                                    out.println("<option>" + rs.getString("nome") + "</option>");
+                                } 
+                                    out.println("</select>");
+                                    out.println("<input type=\"submit\" id=\"Buscar\" value=\"Buscar\">");
+                                    out.println("</fieldset>");  
+                                    
+                            }   catch (Exception e){  
+                                    out.println("Não foi possível conectar ao banco" + e.getMessage());  
+                                } 
+                        %>
+                            <wbr><center>
+                                <input type ="submit" id="Cadastrar_Pessoa" value="Cadastrar" onclick="enviar('cadastrar')">
+                                <input type ="submit" id="Sortear" value="Sortear">
+                            </center></div>
+                    </section>
+                </article>	
+            </div></form>
+        </div> 
+    </body>
+</html>
