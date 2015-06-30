@@ -1,0 +1,52 @@
+package Database;
+
+import java.util.*;
+import java.sql.*;
+
+public class ListaAmigos   
+{  
+    private String Nome;  
+    private String Email;
+    private String Sorteou;  
+    private String Sorteado;  
+      
+    public String getNome()   
+    {  
+        return Nome;  
+    }  
+      
+    public void setNome(String nome)   
+    {  
+        this.Nome = nome;  
+    }  
+      
+    public String getEmail()   
+    {  
+        return Email;  
+    }  
+      
+    public void setEmail(String email)   
+    {  
+        this.Email = email;  
+    }  
+  
+    public String getSorteou()   
+    {  
+        return Sorteou;  
+    }  
+  
+    public void setSorteou(String sorteou)   
+    {  
+        Sorteou  = sorteou;  
+    }  
+  
+    public String getSorteado()   
+    {  
+        return Sorteado;  
+    }  
+  
+    public void setSorteado(String sorteado)   
+    {  
+        Sorteado = sorteado;  
+    }     
+}  
