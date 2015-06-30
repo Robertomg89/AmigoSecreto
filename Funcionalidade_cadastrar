@@ -1,0 +1,32 @@
+ <%@ page contentType="text/html" language="java" import="java.sql.*"%>  
+    <jsp:useBean id="con" class="Database.conexao"/> 
+   
+    <html>  
+    <head>  
+        <title>Cadastrar</title>  
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  
+    </head>  
+    
+    <body>  
+        <form name="form1" method="post" action="Iupessoas.jsp">  
+            <%  
+                try {
+                    con.setEmail(request.getParameter("txtem"));        
+                    con.setConsulta();  
+                    ResultSet temp = con.getResultado();  
+                    if(temp.next())
+                    {
+                       out.println("<script>" + "alert('Registro existente!!');" + "</script>");
+                       out.println("<script>" + "location.href='Iupessoas.jsp';" + "</script>");
+                    }
+                    else {
+                        con.setNome(request.getParameter("txtnome"));
+                        con.inserirDados();
+                        out.println("<script>" + "alert('Usuario Cadastrado com sucesso!');" + "</script>");
+                        out.println("<script>" + "location.href='index.jsp';" + "</script>");   
+                    }                   
+                }catch (Exception e) { e.printStackTrace(); }           
+            %>        
+    </form>  
+    </body>  
+</html>  
