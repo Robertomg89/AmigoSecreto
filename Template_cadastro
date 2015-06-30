@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<%@ page contentType="text/html" language="java" import="java.sql.*"%>
+<html>
+    <head>
+        <title>Home: Amigosecreto 2015</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />		
+     <header>
+            <link rel="stylesheet" href="Mycss.css"/>
+        <hgroup class="clearfix">
+            <font color = "White"><h1><span>Homepage amigo secreto</span></h1></font>
+            <h2><span>Desenvolvedor: Roberto </span></h2>
+    	</hgroup>
+     </header>
+    </head>
+    
+     <%  
+        String nome = request.getParameter("nome");  
+        String email = request.getParameter("email");  
+     %>  
+
+     <script>
+        function enviar(action){  
+            if (action == 'cadastrar'){     
+                document.Iupessoas.action='cadastrar.jsp';  
+                document.Iupessoas.submit(); 
+            }
+            elseif (action == 'alterar'){     
+                document.Iupessoas.action='alterar.jsp';  
+                document.Iupessoas.submit(); 
+        }   } 
+    </script>
+    <body> 
+        <div id="main" class="clearfix"> <!-- Início do Menu -->
+            <aside>
+                <nav>
+                    <ul id="menu">
+                        <li class="current_page_item"><a href="index.jsp">Home</a></li>	
+                    </ul>
+                </nav>
+            </aside>
+            
+            <div id="content">
+                <article>
+                    <section>
+                        <form name="Iupessoas" method="get"> 
+                        <div align = "center"><fieldset style="width: 400px; height: 55px"><legend>Lista de pessoas que participarão do sorteio</legend>
+                            <label for="nome">Nome:</label><input type="text" id="txtnome" name="txtnome" value="<%=(nome==null)?"":nome%>" size="40" maxlength="40" required pattern="[a-z\s]+$" /> <br>
+                            <label for="email">Email:</label><input type="text" id="txtem" name="txtem" value="<%=(email==null)?"":email%>" size="40" maxlength="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                        </fieldset></div>
+                            <wbr><center>
+                                <input type ="submit" id="Cadastrar" value="Cadastrar" onclick="enviar('cadastrar')"/>
+                                <input type ="reset" id="Cancelar" value="Cancelar">
+                            </center></div></form>
+                    </section>
+                </article>	
+            </div>
+        </div> 
+    </body>
+</html>
