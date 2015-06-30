@@ -113,9 +113,7 @@ package Database;
         public void setConsulta() {  
               
             try {  
-                String query = "select * from pessoa";
-                stms = con.prepareStatement(query);
-                rs = stms.executeQuery();  
+                rs = stm.executeQuery("select * from pessoa");  
             }   
             catch (SQLException e){  
                 e.printStackTrace();  
